@@ -1,7 +1,7 @@
 <?php
 require_once "../Conexao.php";
 require_once "../SQLMethods.php";
-require_once "autoload.php";
+require_once "../Carbon/autoload.php";
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 
@@ -11,12 +11,12 @@ $sunday = $date->endOfWeek()->format('Y-m-d');  // sunday
 SQLMethods::defineCredentials();
 
 $data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE CONVERT(DATE, data_hora) BETWEEN '{$monday}' AND '{$sunday}'");
-$json = [];
-
+$json = array();
+$json["data"] = array();
 if ($data != null) {
-    $json[] = ['max-con' => $data[0][0]];
+    $json["data"] = ['max-con' => $data[0][0]];
 } else {
-    $json[] = ['erro' => 'Não foi possível acessar o banco de dados'];
+    $json["data"] = ['erro' => 'Não foi possível acessar o banco de dados'];
     http_response_code(500);
 }
 header_remove();

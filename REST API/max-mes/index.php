@@ -4,11 +4,12 @@ require_once "../SQLMethods.php";
 
 SQLMethods::defineCredentials();
 $data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE MONTH(data_hora) = ". date(m));
-$json = [];
+$json = array();
+$json["data"] = array();
 if ($data != null) {
-    $json[] = ['max-con' => $data[0][0]];
+    $json["data"] = ['max-con' => $data[0][0]];
 } else {
-    $json[] = ['erro' => 'Não foi possível acessar o banco de dados'];
+    $json["data"] = ['erro' => 'Não foi possível acessar o banco de dados'];
     http_response_code(500);
 }
 header_remove();

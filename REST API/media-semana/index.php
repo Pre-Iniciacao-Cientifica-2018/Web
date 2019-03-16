@@ -1,32 +1,24 @@
 <?php
-    //https://www.youtube.com/watch?v=7s5_TmBqZR8
-        require_once "../Conexao.php";
-        if (isset($_GET["req"])) {
-            
-            define('DB_HOST'        , "localhost");
-            define('DB_USER'        , "sa");
-            define('DB_PASSWORD'    , "12345");
-            define('DB_NAME'        , "BANCO");
-            define('DB_DRIVER'      , "sqlsrv");
+require_once "../Conexao.php";
+require_once "../SQLMethods.php";
+require_once "../Carbon/autoload.php";
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
-            if ($_GET["req"] == "s") {
-                $Conexao = Conexao::getConnection();
-                $query = $Conexao->query("SELECT * FROM DADOS");
-                $data   = $query->fetchAll();
-                $json = [];
-                
-                if ($data != null) {
-                    for ($i = 0; $i < sizeof($data); $i++) {
-                        $json[] = [ strval($data[$i][0]) => $data[$i][1] ];
-                    }
-                }
-                header_remove();
-                header('Content-Type: application/json');
-                echo json_encode($json);
-            }
-            else if ($_GET["req"] == "u") {
-                echo 'update';
-            }
-        }
-    
-    ?>
+$date = Carbon::parse(date('Y-m-d'));
+$monday = $date->startOfWeek()->format('Y-m-d'); // monday
+$sunday = $date->endOfWeek()->format('Y-m-d');  // sunday
+SQLMethods::defineCredentials();
+
+$data = SQLMethods::select("SELECT AVG(concentracao) FROM DADOS WHERE CONVERT(DATE, data_hora) BETWEEN '{$monday}' AND '{$sunday}'");
+$json = array();
+$json["data"] = array();
+if ($data != null) {
+    $json["data"] = ['media-semana' => $data[0][0]];
+} else {
+    $json["data"] = ['erro' => 'Não foi possível acessar o banco de dados'];
+    http_response_code(500);
+}
+header_remove();
+header('Content-Type: application/json');
+echo json_encode($json);

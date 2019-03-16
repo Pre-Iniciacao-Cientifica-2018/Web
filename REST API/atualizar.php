@@ -2,7 +2,7 @@
     require_once "Conexao.php";
     require_once "SQLMethods.php";
     session_start();    
-   
+    
     function getData($query, $first) {
         
         try {
@@ -32,6 +32,7 @@
                 getData("SELECT concentracao FROM DADOS WHERE id = ".($_SESSION['id'] + 1), false); 
                 break;                
             case 'initial':
+                $_SESSION['id'] = 0;
                 getData("SELECT TOP 6 concentracao, id, FORMAT(data_hora,'hh:mm') FROM DADOS ORDER BY id DESC", true);
                 break;
         }
