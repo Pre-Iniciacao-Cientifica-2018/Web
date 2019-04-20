@@ -2,25 +2,16 @@
   
 class Conexao
 {
-   private static $connection;
-  
-   private function __construct(){}
-  
-   public static function getConnection() {
-  
-       $pdoConfig  = DB_DRIVER . ":". "Server=" . DB_HOST . ";";
-       $pdoConfig .= "Database=".DB_NAME.";";
-       
-       try {
-           if(!isset($connection)){
-               $connection =  new PDO($pdoConfig, DB_USER, DB_PASSWORD);
-               $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-           }
-           return $connection;
-       } catch (PDOException $e) {
-           $mensagem = "Drivers disponíveis: " . implode(",", PDO::getAvailableDrivers());
-           $mensagem .= "\nErro: " . $e->getMessage();
-           throw new Exception($mensagem);
-       }
-   }
+    private $servername = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $dbname = "banco";
+
+    public function getConexao() {
+        $conn = mysqli_connect('localhost', 'root', '', 'banco');
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        return $conn;
+    }
 }

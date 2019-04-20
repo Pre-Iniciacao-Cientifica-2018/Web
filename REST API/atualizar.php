@@ -1,5 +1,5 @@
 <?php
-    require_once "Conexao.php";
+    
     require_once "SQLMethods.php";
     session_start();    
     
@@ -7,12 +7,10 @@
         
         try {
             if ($first) {
-                SQLMethods::defineCredentials();
                 $resul = SQLMethods::select($query);
-                $_SESSION['id'] = intval($resul[0]['id']);
+                $_SESSION['id'] = intval($resul[0]);
                 echo json_encode($resul);
             } else {
-                SQLMethods::defineCredentials();
                 $resul = SQLMethods::select($query);
                 if (!empty($resul)) {
                     $_SESSION['id'] += 1;
@@ -29,11 +27,11 @@
         $action = $_POST['action'];
         switch($action) {
             case 'att':
-                getData("SELECT concentracao FROM DADOS WHERE id = ".($_SESSION['id'] + 1), false); 
+                getData("SELECT concentracao FROM dados WHERE id = ".($_SESSION['id'] + 1), false); 
                 break;                
             case 'initial':
                 $_SESSION['id'] = 0;
-                getData("SELECT TOP 6 concentracao, id, FORMAT(data_hora,'hh:mm') FROM DADOS ORDER BY id DESC", true);
+                getData("SELECT concentracao, id, DATE_FORMAT(data_hora,'%H:%i') as data_hora FROM DADOS ORDER BY id DESC LIMIT 6", true);
                 break;
         }
     }

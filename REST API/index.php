@@ -97,7 +97,7 @@ setInterval(function(){
             if (output != "error") {
                 var date = new Date();
                 var time = date.getHours()+":"+date.getMinutes();
-                addData(myChart, time, JSON.parse(output)[0].concentracao);
+                addData(myChart, time, JSON.parse(output).concentracao);
             }
         }
     });
