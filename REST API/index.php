@@ -106,6 +106,11 @@ setInterval(function(){
     });
 }
 , 5000);
+
+$( document ).ready(function() {
+    $("[style='text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;']").remove();
+});
+    
 </script>
 </div>
 </body>
