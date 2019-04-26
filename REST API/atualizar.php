@@ -1,6 +1,7 @@
 <?php
     
-    require_once "SQLMethods.php";
+    include realpath(__DIR__).'/SQLMethods.php';
+    
     session_start();    
     
     function getData($query, $first) {
@@ -8,7 +9,7 @@
         try {
             if ($first) {
                 $resul = SQLMethods::select($query);
-                $_SESSION['id'] = intval($resul[0]);
+                $_SESSION['id'] = intval($resul[0][1]);
                 echo json_encode($resul);
             } else {
                 $resul = SQLMethods::select($query);
@@ -27,7 +28,7 @@
         $action = $_POST['action'];
         switch($action) {
             case 'att':
-                getData("SELECT concentracao FROM dados WHERE id = ".($_SESSION['id'] + 1), false); 
+                getData("SELECT concentracao FROM DADOS WHERE id = ".($_SESSION['id'] + 1), false); 
                 break;                
             case 'initial':
                 $_SESSION['id'] = 0;

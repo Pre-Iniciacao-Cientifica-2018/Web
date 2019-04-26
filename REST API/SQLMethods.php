@@ -1,6 +1,5 @@
 <?php
-include 'Conexao.php';
-
+include 'conexao.php';
 class SQLMethods {
     
     public static function select($select) {
@@ -9,8 +8,6 @@ class SQLMethods {
     }
 
     public static function insert($insert) {
-        $Conexao = Conexao::getConnection();
-        $query = $Conexao->prepare($insert);
-        $query->execute();
+        mysqli_query(Conexao::getConexao(), $insert);
     }
 }

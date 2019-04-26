@@ -1,9 +1,7 @@
 <?php
-require_once "../Conexao.php";
-require_once "../SQLMethods.php";
+include '../SQLMethods.php';
 
-SQLMethods::defineCredentials();
-$data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE MONTH(data_hora) = ". date(m));
+$data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE MONTH(data_hora) = MONTH(NOW())");
 $json = array();
 $json["data"] = array();
 if ($data != null) {

@@ -1,6 +1,5 @@
 <?php
-require_once "../Conexao.php";
-require_once "../SQLMethods.php";
+include "../SQLMethods.php";
 require_once "../Carbon/autoload.php";
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -8,9 +7,8 @@ use Carbon\CarbonInterval;
 $date = Carbon::parse(date('Y-m-d'));
 $monday = $date->startOfWeek()->format('Y-m-d'); // monday
 $sunday = $date->endOfWeek()->format('Y-m-d');  // sunday
-SQLMethods::defineCredentials();
 
-$data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE CONVERT(DATE, data_hora) BETWEEN '{$monday}' AND '{$sunday}'");
+$data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE DATE(data_hora) BETWEEN '{$monday}' AND '{$sunday}'");
 $json = array();
 $json["data"] = array();
 if ($data != null) {

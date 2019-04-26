@@ -1,4 +1,3 @@
-<?php include 'atualizar.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,11 +13,15 @@
             justify-content: center;
             height: 100vh;
         }
+        #myChart {
+            width: 60vw;
+            height: auto;
+        }
     </style>
 </head>
 <body>
 <div class="chart-container">
-<canvas id="myChart" width="1000" height="500"></canvas>
+<canvas id="myChart"></canvas>
 <script>
 
 var initialData = null;
@@ -97,7 +100,7 @@ setInterval(function(){
             if (output != "error") {
                 var date = new Date();
                 var time = date.getHours()+":"+date.getMinutes();
-                addData(myChart, time, JSON.parse(output).concentracao);
+                addData(myChart, time, JSON.parse(output)[0].concentracao);
             }
         }
     });
