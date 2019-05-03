@@ -12,7 +12,7 @@ $data = SQLMethods::select("SELECT MAX(concentracao) FROM DADOS WHERE day(data_h
 $json = array();
 $json["data"] = array();
 if ($data != null) {
-    $json["data"] = ['min-con' => $data[0][0]];
+    $json["data"] = ['max-con' => $data[0][0]];
 } else {
     $json["data"] = ['erro' => 'Não foi possível acessar o banco de dados'];
     http_response_code(500);
