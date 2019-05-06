@@ -60,7 +60,7 @@ setInterval(function(){
             if (output != "error") {
                 var date = new Date();
                 var time = date.getHours()+":"+date.getMinutes();
-                if(length()<5){
+                if(time.length<5){
                     time = time+"0";
                 }
                 addData(myChart, time, JSON.parse(output)[0].concentracao);
