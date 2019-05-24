@@ -59,10 +59,13 @@ setInterval(function(){
         success: function(output) {
             if (output != "error") {
                 var date = new Date();
-                var time = date.getHours()+":"+date.getMinutes();
-                if(time.length<5){
-                    time = time+"0";
+                if(date.getMinutes()<2){
+                    var time = date.getHours()+":0"+date.getMinutes();
                 }
+                else{
+                    var time = date.getHours()+":"+date.getMinutes();
+                }
+
                 addData(myChart, time, JSON.parse(output)[0].concentracao);
             }
         }

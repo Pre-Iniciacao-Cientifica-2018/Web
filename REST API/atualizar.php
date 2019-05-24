@@ -44,9 +44,9 @@
             convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from dados where month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
         }
         if(isset($_SESSION["datepicker1"]) && !empty($_SESSION["datepicker1"])){
-            convertToArray($return,"SELECT concentracao,datepart(hour,data_registro) from MEDIAS_HORARIAS WHERE convert(varchar(10),data_registro,103) = '".$_SESSION["datepicker1"]."' ORDER by datepart(hour,data_registro)");
+            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `dados` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker1']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
             $return[count($return)] = "start-con";
-            convertToArray($return,"SELECT concentracao,datepart(hour,data_registro) from MEDIAS_HORARIAS WHERE convert(varchar(10),data_registro,103) = '".$_SESSION["datepicker2"]."' ORDER by datepart(hour,data_registro)");
+            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `dados` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker2']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
         }
         echo json_encode($return);
 }
@@ -72,7 +72,16 @@
             catch(Exception $e){}
             //o javascript não tem matriz, por isso retornei array 
     } 
-
+    function eraseSpecificSessionVariable($num){
+        switch($num){
+            case 1: $_SESSION['datepicker'] = null;
+            break;
+            case 2: $_SESSION['datepickerSemanal'] = null;
+            break;
+            case 3: $_SESSION['datepickerMensal'] = null;
+            break;
+        }
+    }
     if(isset($_POST['action']) && !empty($_POST['action'])) {
         $action = $_POST['action'];
         switch($action) {
@@ -87,6 +96,13 @@
                 getMedias();break;
                 case 'del':
                 eraseSessionVariables();break;
+                case 'dia':
+                eraseSpecificSessionVariable(1);
+                case 'sem':
+                eraseSpecificSessionVariable(2);
+                case 'mes':
+                eraseSpecificSessionVariable(3);
+
         }
     }
 ?>

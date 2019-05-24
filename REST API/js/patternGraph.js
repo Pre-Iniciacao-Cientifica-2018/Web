@@ -1,7 +1,20 @@
 function createGraph(isRealTimeGraph){
+    Chart.defaults.global.elements.point.radius = 20;
+    Chart.defaults.global.elements.point.hitRadius = 20;
+
     Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
-            var ctx = document.getElementById("myChart");
+var ctx;
+            if(mes){
+                ctx = document.getElementById("myChart-mes");
+                mes = false;
+            }
+            else if(semana){
+                ctx = document.getElementById("myChart-semana");
+                semana = false;
+            }
+            
+         ctx = document.getElementById("myChart");
     myChart = new Chart(ctx, {
     type: 'line',
     data: {

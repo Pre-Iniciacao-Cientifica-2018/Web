@@ -6,8 +6,8 @@
 
   }
   .ui-datepicker-prev, .ui-datepicker-next {
-    background: #b4df5b; /* Old browsers */
-background: -moz-linear-gradient(top, #b4df5b 0%, #b4df5b 100%); /* FF3.6-15 */
+    background: #5b94df; /* Old browsers */
+background: -moz-linear-gradient(top, #5b94df 0%, #5b94df 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(top, #b4df5b 0%,#b4df5b 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4df5b', endColorstr='#b4df5b',GradientType=0 ); /* IE6-9 */

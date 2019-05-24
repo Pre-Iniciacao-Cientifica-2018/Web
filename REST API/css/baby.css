@@ -9,7 +9,22 @@
     height: 3.5vw;
     padding:2vw;
     border-radius: 10px;
-
+    box-shadow:0 0 0 2px black;
+    font-family: 'Title';
+    color:white;
+    text-align: center;
+    background-color: rgba(26, 146, 211, 0.8);
+}
+.titleGraphArea{
+    font-size: 2vw;
+    height: 3.5vw;
+    padding:2vw;
+    border-radius: 10px;
+    box-shadow:0 0 0 2px black;
+    font-family: 'Title';
+    color:white;
+    text-align: center;
+    background-color: rgba(26, 146, 211, 0.8);
 }
 #subTitle2{
     font-size: 1.3vw;
