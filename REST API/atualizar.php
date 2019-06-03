@@ -78,8 +78,7 @@
             break;
             case 2: $_SESSION['datepickerSemanal'] = null;
             break;
-            case 3: $_SESSION['datepickerMensal'] = null;
-            break;
+
         }
     }
     if(isset($_POST['action']) && !empty($_POST['action'])) {
@@ -98,11 +97,10 @@
                 eraseSessionVariables();break;
                 case 'dia':
                 eraseSpecificSessionVariable(1);
+                break;
                 case 'sem':
                 eraseSpecificSessionVariable(2);
-                case 'mes':
-                eraseSpecificSessionVariable(3);
-
+                break;
         }
     }
 ?>

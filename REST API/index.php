@@ -33,7 +33,7 @@
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var initialData = null;
 var myChart = null;
-
+var mes = false,semana = false;
 myChart = createGraph(true);
 var ctx = document.getElementById("myChart");
 

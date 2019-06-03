@@ -2,8 +2,8 @@
 session_start();
 $_SESSION['datepickerMensal'] = true;
 $_SESSION['datepickerSemanal'] = true;
-
-$_SESSION['datepicker'] = date('d/m/Y');
+date_default_timezone_set('America/Sao_Paulo');
+$_SESSION['datepicker'] = date("d/m/Y");
 
 ?>
 <!DOCTYPE html>
@@ -43,19 +43,13 @@ $_SESSION['datepicker'] = date('d/m/Y');
 </div>
 
 <script>
-function insertValues(graph){
-var tf = false;
-        $.ajax({ url: 'atualizar.php',
-        data: {action: 'md'},
-        type: 'post',
-        success: function(output) {
-            try{
-            tf = true;
+function attributeToGraph(output){
+    try{
+    tf = true;
             var values = new Array();
             values = JSON.parse(output);
-            graph = createGraph(false);
+            var graph = createGraph(false);
 if(tf){
-    var media = 0;
         var i;
     for(i=0;true;i++){
         if(values[i]=="end-con"){
@@ -64,40 +58,53 @@ if(tf){
         graph.data.datasets.forEach((dataset) => {
         dataset.data.push(values[i]);
     });
-    media = media + parseFloat(values[i]);
     }
-    media = media/i;
-    ++i;
-    
+    ++i;   
     for(var j=i;j<Object.keys(values).length;j++){
         graph.data.labels.push(values[j]);
     }
     graph.update();
     }
-            
-
+}catch(e){console.log(e);}
+}
+var mes = false,semana = false;
+var tf = false;
+        $.ajax({ url: 'atualizar.php',
+        data: {action: 'md'},
+        type: 'post',
+        success: function(output) {
+            attributeToGraph(output);
+    $.ajax({ url: 'atualizar.php',
+        data: {action: 'dia'},
+        type: 'post',
+        success:function(){
+            semana = true;
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'md'},
+        type: 'post',
+        success: function(output) {
+            attributeToGraph(output);
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'sem'},
+        type: 'post',
+        success:function(){
+            mes = true;
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'md'},
+        type: 'post',
+        success: function(output) {
+            attributeToGraph(output);
         }
-        catch(e){
-
+    });
         }
-    }    
+    });
+        }
+    });
+        }        
     });
 }
-var myChart;
-var mes = false,semana = false;
-insertValues(myChart);
-$.ajax({ url: 'atualizar.php',
-        data: {action: 'dia'},
-        type: 'post'});
-semana = true;
-var myChartSemana;
-insertValues(myChartSemana);
-mes = true;
-var myChartMes;
-$.ajax({ url: 'atualizar.php',
-        data: {action: 'semana'},
-        type: 'post'});
-insertValues(myChartMes);
+        });
+
 
 $( document ).ready(function() {
     $("[style='text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;']").remove();
