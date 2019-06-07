@@ -17,10 +17,10 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background:rgb(135, 188, 213);
+            background:#f4f8ff;
         }
         #myChart {
-            width: 90vw;
+            width: 80vw;
             height: auto;
         }
     </style>
@@ -36,7 +36,6 @@ var myChart = null;
 var mes = false,semana = false;
 myChart = createGraph(true);
 var ctx = document.getElementById("myChart");
-
 
 function addData(chart, label, data) {
     chart.data.labels.push(label);
@@ -59,7 +58,7 @@ setInterval(function(){
         success: function(output) {
             if (output != "error") {
                 var date = new Date();
-                if(date.getMinutes()<2){
+                if(date.getMinutes().length<2){
                     var time = date.getHours()+":0"+date.getMinutes();
                 }
                 else{

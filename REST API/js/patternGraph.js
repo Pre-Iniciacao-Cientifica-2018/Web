@@ -1,7 +1,7 @@
 function createGraph(isRealTimeGraph){
-    Chart.defaults.global.elements.point.radius = 20;
+    Chart.defaults.global.elements.point.radius = 18;
     Chart.defaults.global.elements.point.hitRadius = 20;
-    Chart.defaults.global.defaultFontColor = 'white';
+    Chart.defaults.global.defaultFontColor = '#333333';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var ctx;
             if(mes){
@@ -23,7 +23,7 @@ var ctx;
         datasets: [{
             label: 'CO2 em ppm',
             backgroundColor: [
-               'rgba(28,153,220,0.7)'
+               'rgba(0,0,0,0)'
             ],
             borderColor: [
                 '#ffffff'
@@ -31,6 +31,7 @@ var ctx;
             borderWidth: 1,
 
         }]
+
     },
     options: {
         scales: {
@@ -41,8 +42,39 @@ var ctx;
             }]
 
         },
-        responsive: true
-    }
+        responsive: true,
+        backgroundRules: [{
+            backgroundColor: '#75ab5d', 
+            yAxisSegement: 475
+        }, {
+            backgroundColor: '#e3cb86',
+            yAxisSegement: 650
+        }, {
+            backgroundColor: '#e7b886',
+            yAxisSegement: 825
+        }, {
+            backgroundColor: '#c97979',
+            yAxisSegement: 1000
+        }, {
+            backgroundColor: '#a791de',
+            yAxisSegement: 9999
+        }]
+    },
+    plugins: [{
+        beforeDraw: function (chart) {
+            var rules = chart.chart.options.backgroundRules;
+            var ctx = chart.chart.ctx;
+            var yAxis = chart.chart.scales["y-axis-0"];
+            var xaxis = chart.chart.scales["x-axis-0"];
+            for (var i = 0; i < rules.length; ++i) {
+                var yAxisSegement = (rules[i].yAxisSegement > yAxis.ticksAsNumbers[0] ? yAxis.ticksAsNumbers[0] : rules[i].yAxisSegement);
+                var yAxisPosStart = yAxis.height - ((yAxisSegement * yAxis.height) / yAxis.ticksAsNumbers[0]) + chart.chart.controller.chartArea.top;
+                var yAxisPosEnd = (i === 0 ? yAxis.height : yAxis.height - ((rules[i - 1].yAxisSegement * yAxis.height) / yAxis.ticksAsNumbers[0]));
+                ctx.fillStyle = rules[i].backgroundColor;
+                ctx.fillRect(xaxis.left, yAxisPosStart, xaxis.width, yAxisPosEnd - yAxisPosStart + chart.chart.controller.chartArea.top);
+            }
+        }
+    }]
 });
 if(isRealTimeGraph){
     $.ajax({ 
@@ -71,5 +103,6 @@ if(isRealTimeGraph){
     }
 });
 }
+myChart.update();     
 return myChart;
 }

@@ -26,20 +26,18 @@ $_SESSION['datepicker'] = date("d/m/Y");
             background:rgb(135, 188, 213);
         }
         #myChart {
-            width: 90vw;
+            width: 80vw;
             height: auto;
         }
     </style>
 </head>
 <body onresize = "resizeElements()" onload="resizeElements()">
 
-<div class="chart-container" style="position: relative; height:100%; width:98%;display:flex; flex-direction:column;">
+<div class="chart-container" style="position: relative; height:100%; width:95%;display:flex; flex-direction:column;">
 <p class = "titleGraphArea">Gráfico das concentrações horárias de hoje</p>
 <canvas id="myChart"></canvas>
 <p class = "titleGraphArea">Gráfico das concentrações diárias dessa semana</p>
-<canvas id="myChart-semana"></canvas>
-<p class = "titleGraphArea">Gráfico das concentrações diárias desse mês</p>
-<canvas id="myChart-mes"></canvas>
+
 </div>
 
 <script>
