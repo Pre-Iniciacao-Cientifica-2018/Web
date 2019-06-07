@@ -85,11 +85,11 @@
         $action = $_POST['action'];
         switch($action) {
             case 'att':
-                getData("SELECT concentracao FROM DADOS WHERE id = ".($_SESSION['id'] + 1), false); 
+                getData("SELECT concentracao FROM DADOS WHERE id = ".($_SESSION['id'] + 1)." AND day(data_hora) = day(now())", false); 
                 break;                
             case 'initial':
                 $_SESSION['id'] = 0;
-                getData("SELECT concentracao, id, DATE_FORMAT(data_hora,'%H:%i') as data_hora FROM DADOS ORDER BY id DESC LIMIT 6", true);
+                getData("SELECT concentracao, id, DATE_FORMAT(data_hora,'%H:%i') as data_hora FROM DADOS where day(data_hora) = day(now()) ORDER BY id DESC LIMIT 6", true);
                 break;
                 case 'md':
                 getMedias();break;

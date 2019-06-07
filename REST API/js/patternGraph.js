@@ -1,6 +1,6 @@
 function createGraph(isRealTimeGraph){
-    Chart.defaults.global.elements.point.radius = 5;
-    Chart.defaults.global.elements.point.hitRadius = 12;
+    Chart.defaults.global.elements.point.radius = 20;
+    Chart.defaults.global.elements.point.hitRadius = 20;
     Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var ctx;
@@ -53,12 +53,19 @@ if(isRealTimeGraph){
         var values = new Array();
         values = JSON.parse(output);
         for(var i=5;i>=0;i--){
+            try{
+            var aux = values[i].concentracao;
+            }catch(e){continue;}
             myChart.data.datasets.forEach((dataset) => {
-            dataset.data.push(values[i].concentracao);
+            dataset.data.push(aux);
         });
+    
         }
         for(var i=5;i>=0;i--){
-            myChart.data.labels.push(values[i][2]);
+            try{
+            var aux = values[i][2];
+        }catch(e){continue;}
+            myChart.data.labels.push(aux);
         }
         myChart.update();                        
     }
