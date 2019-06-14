@@ -58,10 +58,16 @@ setInterval(function(){
         success: function(output) {
             if (output != "error") {
                 var date = new Date();
-                if(date.getMinutes().length<2){
+                if(String(date.getMinutes()).length<2 && String(date.getHours()).length<2){
+                    var time = "0"+date.getHours()+":0"+date.getMinutes();
+                }
+                else if (String(date.getHours()).length<2) {
+                    var time = "0"+date.getHours()+":"+date.getMinutes();
+                }
+                else if (String(date.getMinutes()).length<2) {
                     var time = date.getHours()+":0"+date.getMinutes();
                 }
-                else{
+                else {
                     var time = date.getHours()+":"+date.getMinutes();
                 }
 
