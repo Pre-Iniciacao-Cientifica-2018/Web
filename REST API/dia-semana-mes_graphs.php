@@ -37,7 +37,9 @@ $_SESSION['datepicker'] = date("d/m/Y");
 <p class = "titleGraphArea">Gráfico das concentrações horárias de hoje</p>
 <canvas id="myChart"></canvas>
 <p class = "titleGraphArea">Gráfico das concentrações diárias dessa semana</p>
-
+<canvas id="myChart-semana"></canvas>
+<p class = "titleGraphArea">Gráfico das concentrações diárias desse mês</p>
+<canvas id="myChart-mes"></canvas>
 </div>
 
 <script>

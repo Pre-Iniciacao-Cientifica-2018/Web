@@ -57,7 +57,10 @@ var ctx;
             yAxisSegement: 1000
         }, {
             backgroundColor: '#a791de',
-            yAxisSegement: 9999
+            yAxisSegement: 20000
+        }, {
+            backgroundColor: '#f4f8ff',
+            yAxisSegement: 20001
         }]
     },
     plugins: [{

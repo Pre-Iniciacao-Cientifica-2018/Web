@@ -56,7 +56,7 @@ setInterval(function(){
         data: {action: 'att'},
         type: 'post',
         success: function(output) {
-            if (output != "error") {
+            if (output != "error") {               
                 var date = new Date();
                 if(String(date.getMinutes()).length<2 && String(date.getHours()).length<2){
                     var time = "0"+date.getHours()+":0"+date.getMinutes();
