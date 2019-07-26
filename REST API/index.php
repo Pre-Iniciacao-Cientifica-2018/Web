@@ -10,7 +10,17 @@
     <script src="js/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
-        </script>
+    window.onload = eraseSessionVariables;                   
+   function eraseSessionVariables(){
+        $.ajax({ url: 'atualizar.php',
+        data: {action: 'del'},
+        type: 'post',
+        success: function() {
+        resizeElements();       
+        }
+    });
+}
+    </script>
     <style>
         body {
             display: flex;
@@ -37,19 +47,20 @@ var mes = false,semana = false;
 myChart = createGraph(true);
 var ctx = document.getElementById("myChart");
 
-function addData(chart, label, data) {
+function addData(chart, label, data,canSplice) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
     });
-    chart.update();
+    if(canSplice){
     chart.data.labels.splice(0, 1);
     chart.data.datasets.forEach((dataset) => {
         dataset.data.splice(0, 1);
     });
+    }
     chart.update();
 }
-
+var contador = 0;
 setInterval(function(){ 
     $.ajax({ 
         url: 'atualizar.php',
@@ -70,8 +81,18 @@ setInterval(function(){
                 else {
                     var time = date.getHours()+":"+date.getMinutes();
                 }
-
-                addData(myChart, time, JSON.parse(output)[0].concentracao);
+                contador = 0;
+                myChart.data.datasets.forEach((dataset) => {
+                    contador++;
+                });
+                var canSplice;
+                if(contador<6){
+                    canSplice = false;
+                }
+                else{
+                    canSplice = true;
+                }
+                addData(myChart, time, JSON.parse(output)[0][0],canSplice);
             }
         }
     });

@@ -23,7 +23,7 @@ $_SESSION['datepicker'] = date("d/m/Y");
     <style>
         body {
             height: 100vh;
-            background:rgb(135, 188, 213);
+            background:#f4f8ff;
         }
         #myChart {
             width: 80vw;

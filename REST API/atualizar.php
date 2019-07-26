@@ -9,12 +9,12 @@
         try {
             if ($first) {
                 $resul = SQLMethods::select($query);
-                $_SESSION['id'] = intval($resul[0][1]);
+                $_SESSION['id'] = $resul[0][1];
                 echo json_encode($resul);
             } else {
                 $resul = SQLMethods::select($query);
-                if (!empty($resul)) {
-                    $_SESSION['id'] += 1;
+                if (!empty($resul)&& $_SESSION['id']!=$resul[0][1]) {
+                    $_SESSION['id'] = $resul[0][1];
                     echo json_encode($resul);
                 } else { echo 'error'; }
             }
@@ -85,7 +85,7 @@
         $action = $_POST['action'];
         switch($action) {
             case 'att':
-                getData("SELECT concentracao FROM DADOS WHERE id = ".($_SESSION['id'] + 1)." AND date(data_hora) = date(now())", false); 
+                getData("SELECT concentracao,id FROM DADOS WHERE date(data_hora) = date(now()) order by id desc limit 1", false); 
                 break;                
             case 'initial':
                 $_SESSION['id'] = 0;

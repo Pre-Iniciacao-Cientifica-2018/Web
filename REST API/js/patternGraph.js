@@ -1,7 +1,7 @@
 function createGraph(isRealTimeGraph){
     Chart.defaults.global.elements.point.radius = 18;
     Chart.defaults.global.elements.point.hitRadius = 20;
-    Chart.defaults.global.defaultFontColor = '#333333';
+    Chart.defaults.global.defaultFontColor = '#89d2f5';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var ctx;
             if(mes){
@@ -28,7 +28,7 @@ var ctx;
             borderColor: [
                 '#ffffff'
             ],
-            borderWidth: 1,
+            borderWidth: 3,
 
         }]
 
@@ -86,7 +86,10 @@ if(isRealTimeGraph){
         type: 'post',
         success: function(output){
         var values = new Array();
+        try{
         values = JSON.parse(output);
+        
+        }catch(e){return;}
         for(var i=5;i>=0;i--){
             try{
             var aux = values[i].concentracao;
