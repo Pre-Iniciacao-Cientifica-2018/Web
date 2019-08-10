@@ -53,11 +53,14 @@
     function convertToArray(&$return,$stringQuery){
         $dados_media = SQLMethods::select($stringQuery);
         try{
+            if($dados_media!=null){
             for($i=0;$i<count($dados_media);$i++){
                 $return[$i] = $dados_media[$i][0];
             }
+        }
         }catch(Exception $e){}
             try{
+                if($return!=null){
             $return[count($return)] = "end-con";
             for($i=0;$i<count($dados_media);$i++){
                 if(isset($_SESSION["datepicker"])){
@@ -68,6 +71,7 @@
                 }
                 
             }
+        }
         }
             catch(Exception $e){}
             //o javascript não tem matriz, por isso retornei array 
@@ -85,7 +89,7 @@
         $action = $_POST['action'];
         switch($action) {
             case 'att':
-                getData("SELECT concentracao,id FROM DADOS WHERE date(data_hora) = date(now()) order by id desc limit 1", false); 
+                getData("SELECT concentracao,id, DATE_FORMAT(data_hora,'%H:%i') as data_hora FROM DADOS WHERE date(data_hora) = date(now()) order by id desc limit 1", false); 
                 break;                
             case 'initial':
                 $_SESSION['id'] = 0;
