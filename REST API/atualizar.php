@@ -30,34 +30,37 @@
     function getMedias(){
         $return;
         if (isset($_SESSION["datepicker"]) && !empty($_SESSION["datepicker"])) {
-            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `dados` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
+            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM DADOS WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
         }
         else if(isset($_SESSION["datepickerFrom"]) && !empty($_SESSION["datepickerFrom"]) && isset($_SESSION["datepickerTo"]) && !empty($_SESSION["datepickerTo"])){
             $_SESSION['datepickerFrom'] = substr($_SESSION['datepickerFrom'],6)."-".$_SESSION['datepickerFrom'][3].$_SESSION['datepickerFrom'][4]."-".substr($_SESSION['datepickerFrom'],0,2);
             $_SESSION['datepickerTo'] = substr($_SESSION['datepickerTo'],6)."-".$_SESSION['datepickerTo'][3].$_SESSION['datepickerTo'][4]."-".substr($_SESSION['datepickerTo'],0,2);
-            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(date(data_hora),'%d/%m/%Y') from dados where date(data_hora) BETWEEN '".$_SESSION['datepickerFrom']."' and '".$_SESSION['datepickerTo']."' group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");        
+            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(date(data_hora),'%d/%m/%Y') from DADOS where date(data_hora) BETWEEN '".$_SESSION['datepickerFrom']."' and '".$_SESSION['datepickerTo']."' group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");        
         }
         else if(isset($_SESSION["datepickerSemanal"]) && !empty($_SESSION["datepickerSemanal"])){
-            convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from dados where week(data_hora) = week(now()) and month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
+            convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from DADOS where week(data_hora) = week(now()) and month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
         }
         else if(isset($_SESSION["datepickerMensal"]) && !empty($_SESSION["datepickerMensal"])){
-            convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from dados where month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
+            convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from DADOS where month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
         }
         if(isset($_SESSION["datepicker1"]) && !empty($_SESSION["datepicker1"])){
-            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `dados` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker1']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
+            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `DADOS` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker1']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
             $return[count($return)] = "start-con";
-            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `dados` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker2']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
+            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `DADOS` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker2']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
         }
         echo json_encode($return);
 }
     function convertToArray(&$return,$stringQuery){
         $dados_media = SQLMethods::select($stringQuery);
         try{
+            if($dados_media!=null){
             for($i=0;$i<count($dados_media);$i++){
                 $return[$i] = $dados_media[$i][0];
             }
+        }
         }catch(Exception $e){}
             try{
+                if($return!=null){
             $return[count($return)] = "end-con";
             for($i=0;$i<count($dados_media);$i++){
                 if(isset($_SESSION["datepicker"])){
@@ -68,6 +71,7 @@
                 }
                 
             }
+        }
         }
             catch(Exception $e){}
             //o javascript não tem matriz, por isso retornei array 
@@ -85,7 +89,7 @@
         $action = $_POST['action'];
         switch($action) {
             case 'att':
-                getData("SELECT concentracao,id FROM DADOS WHERE date(data_hora) = date(now()) order by id desc limit 1", false); 
+                getData("SELECT concentracao,id, DATE_FORMAT(data_hora,'%H:%i') as data_hora FROM DADOS WHERE date(data_hora) = date(now()) order by id desc limit 1", false); 
                 break;                
             case 'initial':
                 $_SESSION['id'] = 0;

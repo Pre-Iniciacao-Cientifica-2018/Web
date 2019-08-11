@@ -43,28 +43,30 @@ $_SESSION['datepicker'] = date("d/m/Y");
 </div>
 
 <script>
+var contador = 0;
+var graphs = new Array();
 function attributeToGraph(output){
     try{
-    tf = true;
             var values = new Array();
             values = JSON.parse(output);
-            var graph = createGraph(false);
-if(tf){
+             graphs[contador] = createGraph(false);
+    if(values!=null){
         var i;
     for(i=0;true;i++){
         if(values[i]=="end-con"){
             break;
         }
-        graph.data.datasets.forEach((dataset) => {
-        dataset.data.push(values[i]);
+        graphs[contador].data.datasets.forEach((dataset) => {
+        dataset.data.push(parseFloat(values[i]).toFixed(2));
     });
     }
     ++i;   
     for(var j=i;j<Object.keys(values).length;j++){
-        graph.data.labels.push(values[j]);
+        graphs[contador].data.labels.push(values[j]);
     }
-    graph.update();
-    }
+    graphs[contador].update();
+}
+contador++;
 }catch(e){console.log(e);}
 }
 var mes = false,semana = false;
@@ -94,6 +96,28 @@ var tf = false;
         type: 'post',
         success: function(output) {
             attributeToGraph(output);
+            for(var i=0;i<3;i++){
+                contador = 0;
+    graphs[i].data.datasets[0].data.forEach((dataset) => {
+        contador++;
+    });
+    if(contador==0){
+        var context = graphs[i].chart.ctx;
+      var width = graphs[i].chart.width;
+      var height = graphs[i].chart.height;
+      graphs[i].clear();      
+      context.save();
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.font = "2.5vw 'Title'";
+      context.fillText('Dados inexistentes!', width / 2, height / 2);
+      context.restore();
+    }
+}
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'del'},
+        type: 'post'
+    });
         }
     });
         }
