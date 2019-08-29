@@ -22,7 +22,7 @@
     </style>
 </head>
 <script>
-var mes = false,semana = false;;
+var mes = false,semana = false;
     var tf = false;
         $.ajax({ url: 'atualizar.php',
         data: {action: 'md'},
@@ -42,7 +42,7 @@ if(tf){
             break;
         }
         myChart.data.datasets.forEach((dataset) => {
-        dataset.data.push(values[i]);
+        dataset.data.push(parseFloat(values[i]).toFixed(2));
     });
     media = media + parseFloat(values[i]);
     }
@@ -55,6 +55,7 @@ if(tf){
     myChart.update();
     document.getElementById("subTitle2").innerHTML = "A média de concentração de CO2 dentro desse período foi de: "+media.toFixed(2);
     document.getElementById("nograph").style.visibility = "hidden";
+    document.body.style.background = "#f4f8ff";
     }
             }
             else{
@@ -69,14 +70,18 @@ if(tf){
             document.getElementById("nograph").innerHTML = "Não foi encontrado nenhum dado dentro do período especificado";
             document.getElementById("subTitle2").style.visibility = "hidden";
         }
+        $.ajax({ url: 'atualizar.php',
+        data: {action: 'del'},
+        type: 'post'
+    });
     }    
     });
     
 </script>
 <body onresize = "resizeElements()" onload="resizeElements()">
 <div class="chart-container" style="position: relative; height:100%; width:98%;display:flex; flex-direction:column;">
+<p style="margin:0 auto" id="subTitle2" class="titleGraphArea"></p> 
 <canvas id="myChart"></canvas>
-<p style="margin:0 auto" id="subTitle2" class="titleFontPattern"></p> 
 </div>
 <p class="titleFontPattern" style="margin:0 auto;position:absolute" id="nograph"></p> 
 <img id="error_img" style="margin:0 auto;width:30%;position:absolute;background-color:rgb(135, 188, 213);z-index:-1" class="Title3"> 

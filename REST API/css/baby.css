@@ -68,13 +68,3 @@ input{
       background-color: rgba(28, 153, 220, 0.8);
       padding: 2vw;
   }
-  body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background:rgb(165, 218, 243);
-            background-attachment:fixed;
-            background-repeat:no-repeat;
-            background-position:center;
-} 
-*{margin:0 auto} 

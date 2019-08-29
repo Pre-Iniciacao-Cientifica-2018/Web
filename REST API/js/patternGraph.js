@@ -1,5 +1,5 @@
 function createGraph(isRealTimeGraph){
-    Chart.defaults.global.elements.point.radius = 18;
+    Chart.defaults.global.elements.point.radius = 10;
     Chart.defaults.global.elements.point.hitRadius = 20;
     Chart.defaults.global.defaultFontColor = '#89d2f5';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";

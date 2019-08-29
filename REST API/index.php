@@ -36,7 +36,7 @@
     </style>
 </head>
 <body onresize = "resizeElements()" onload="resizeElements()">
-<div class="chart-container">
+<div class="chart-container" style="position: relative; height:100%; width:95%;display:flex; flex-direction:column;">
 <canvas id="myChart"></canvas>
 <script>
  Chart.defaults.global.defaultFontColor = 'white';
@@ -68,21 +68,9 @@ setInterval(function(){
         type: 'post',
         success: function(output) {
             if (output != "error") {               
-                var date = new Date();
-                if(String(date.getMinutes()).length<2 && String(date.getHours()).length<2){
-                    var time = "0"+date.getHours()+":0"+date.getMinutes();
-                }
-                else if (String(date.getHours()).length<2) {
-                    var time = "0"+date.getHours()+":"+date.getMinutes();
-                }
-                else if (String(date.getMinutes()).length<2) {
-                    var time = date.getHours()+":0"+date.getMinutes();
-                }
-                else {
-                    var time = date.getHours()+":"+date.getMinutes();
-                }
+                dado = JSON.parse(output);
                 contador = 0;
-                myChart.data.datasets.forEach((dataset) => {
+                myChart.data.datasets[0].data.forEach((dataset) => {
                     contador++;
                 });
                 var canSplice;
@@ -92,7 +80,7 @@ setInterval(function(){
                 else{
                     canSplice = true;
                 }
-                addData(myChart, time, JSON.parse(output)[0][0],canSplice);
+                addData(myChart, dado[0][2], dado[0][0],canSplice);
             }
         }
     });

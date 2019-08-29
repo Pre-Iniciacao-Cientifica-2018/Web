@@ -1,0 +1,532 @@
+/*divAnaliseCateg*/
+/*resultadoPPM*/
+/******************GERAL***************************/
+
+*{
+	margin: 0 auto;
+	font-family:montserrat;
+}
+
+@font-face {
+     font-family: montserrat;
+     src: url('../Montserrat-Medium.otf');
+}
+
+body{
+	font-size:15px;
+}
+
+
+/***************ESTRUTURA BÁSICA*****************/
+
+
+nav{
+	position: fixed; 
+	top: 0;
+	width: 100%;
+	box-shadow:  2px 0px 5px;
+	height:15vh;
+}
+
+nav, footer{
+	background-color:#89d2f5;
+}
+
+footer{
+	height:9vh;
+	margin: 0 auto;
+}
+
+#intro{
+	height:70vh;
+	background-image: url("../img/background.png");
+	background-repeat: no-repeat;
+	background-size: cover; 
+
+}
+
+/*Cores de fundo*/
+
+#sobreco2, #medicao, #analise{
+	background-color:#f4f8ff;
+}
+
+#ebook, #sobre{
+	background-color:#e8f1f2;	
+}
+
+/*Tamanhos*/
+
+#sobreco2{
+	height:55vh;
+}
+
+#ebook{
+	height:100vh;
+}
+
+#medicao{
+	height:112vh;
+}	
+
+#analise{
+	height:110vh;
+}
+
+#sobre{
+	height:120vh;
+}
+
+
+
+#intro, #sobreco2{
+	padding:15px;
+	padding-top:17vh;
+}
+
+
+/************INICIO****************/
+.esquerda, .direita{
+	height:auto;
+	float: left;
+	margin-left:30px;
+	margin-top:40px;
+}
+
+.esquerda{
+	width:50%;
+}
+
+.direita{
+	width: 40%;
+}
+
+.pIntro{
+	margin-top:10px;
+	font-family:montserrat;
+	font-weight:bold;
+	font-size:1.8em;
+	text-align:center;
+}
+
+
+.grafInicio{
+	width:70%;
+	margin-left:15%
+}
+
+
+.textoLogo{
+	width:80%;
+	margin-left:10%;
+	margin-top:15px;
+	clear:both;
+}
+
+.download{
+	width:40%;
+	height:60px;
+	margin-left:30%;
+	margin-top:30px;
+	border-radius:40px;
+	border: solid 3px #89d2f5;
+	color: #89d2f5;
+	font-size:0.9em;
+	font-family:montserrat;
+	cursor:pointer;
+	background: #89d2f5;
+	letter-spacing: 1px;
+	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+	transition: all 0.4s ease 0s;
+	color:white
+}
+
+.creditos{
+	width:40%;
+	height:50px;
+	margin-top:20px;
+}
+
+.imgCredito{
+	height:90%;
+}
+
+p{
+	font-family:montserrat;
+	font-size:0.6;
+	text-align:center;
+}
+
+
+/*********************MENU********************/
+
+ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width:70%;
+	height:80px;
+	margin-top:15px;
+	/*background-color:pink;*/
+	float:right;
+}
+
+ul li{
+	float:right;
+}
+
+ul li a {
+	display: block;
+	padding: 30px 15px;
+	font-size:1.2em;
+	font-family: 'Roboto', sans-serif;
+	font-weight:bold;
+	text-transform:uppercase;
+	text-decoration: none;
+	color:#f4f8ff;
+}
+
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+nav ul li a:hover {
+  color: #000;
+}
+
+nav ul li a {
+  position: relative;
+}
+
+nav ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #000;
+  height: 1px;
+}
+ul li a:hover:after {
+  width: 100%;
+}
+
+
+.logoMenu{
+	float:left;
+	width:30%
+}
+
+.imgLogoMenu{
+	width:70%;
+	margin-left:30%;
+	margin-top:10px;
+}
+
+/*****************SOBRE CO2*******************/
+
+.divTextoSobre{
+	height:100%;
+	width:55%;
+	float:left;
+	padding-left:100px;
+}
+
+.divTextoSobre p{
+	color:#4f4f4f;
+	font-family:montserrat;
+	font-size:0.9em;
+	text-align:justify;
+	line-height:28px;
+}
+
+.divImgSobre{
+	height:100%;
+	width:25%;
+	float:right;
+	padding-right:100px;
+}
+
+.imgSobre{
+	width:100%;
+	float:right;
+	margin-top:55px;
+}
+.divTextoEbook{
+	height:70%;
+	float: left;
+	margin-left:30px;
+	margin-top:40px;
+	width: 40%;
+}
+
+.tituloebook {
+	font-size:1em;
+	padding-bottom:50px;
+	text-align:justify;
+	line-height:28px;
+	color:#4f4f4f;
+}
+
+.btnEbook{
+	width:40%;
+	height:60px;
+	border-radius:40px;
+	margin-left:6.5%;
+	border: solid 3px #89d2f5;
+	color: #89d2f5;
+	font-size:0.9em;
+	font-family:montserrat;
+	cursor:pointer;
+	background: #89d2f5;
+	color:white
+}
+
+.btnEbook:hover{
+		border: solid 3px #89d2f5;
+		background: #e8f1f2;
+		color:#89d2f5;
+}
+
+.divImgEbook{
+	height:70%;
+	width:30%;
+	float:left;
+	padding-left:165px;
+	margin-right:5%;
+}
+
+.imgEbook{
+	height:100%;
+	clear:both;
+}
+
+.transicao{
+		width:100%;
+}
+
+
+.divAnaliseCateg1, .divAnaliseCateg2{
+	width:20%;
+	height:60px;
+	/*border-bottom:0.2px solid #b7b7b7;*/
+	background-color:#e8f1f2;
+	padding:15px;
+	float:left;
+	margin-left:2.5%;
+}
+
+
+.divAnaliseCateg1 p, .divAnaliseCateg2 p{
+	font-family:montserrat;
+	font-size:1.3em;
+	color:#93969b;
+	margin-top:0px;
+}
+
+.divAnalise1, .divAnalise2{
+	width:20%;
+	height:100px;
+	float:left;
+	margin-left:2.5%;
+	padding:15px;
+	margin-bottom:30px;
+	background-color:white;
+}
+
+.divAnalise1 p, .divAnalise2 p{
+	font-family:montserrat;
+	font-size:2.5em;
+	color:#93969b;
+	margin-top:20px;
+}
+
+
+h1{
+	font-family:montserrat;
+	text-align:center;
+	font-size:2.5em;
+	margin-bottom:40px;
+	color:#4f4f4f;
+}
+
+.medEsquerda{
+	height:auto;
+	width:35%;
+	float:left;
+	margin-left:2.5%;
+	padding-left:5%;
+	padding-right:5%;
+}
+
+.medDireita{
+	height:auto;
+	margin-top:3%;
+	width:50%;
+	float:right;
+	margin-right:2.5%;
+}
+
+.medDireita p, .pParametro{
+	font-family:montserrat;
+	font-size:1em;
+	font-weight:bold;
+	color:#93969b;
+	margin-bottom:5px;
+}
+
+.medEsquerda p{
+	color:#4f4f4f;
+	font-family:montserrat;
+	font-size:0.9em;
+	text-align:justify;
+	line-height:28px;
+}
+
+.pMedOculto{
+	font-weight:bold;
+	font-size:2em;
+	display:none;
+}
+
+.pParametro{
+	clear:both;
+}
+
+.imgFuncionamento{
+	width:92%;
+	margin-left:4%;
+
+}
+
+.textosSobre{
+	height:auto;
+	float:left;
+	padding-right:30px;
+	padding-left:30px;
+
+}
+
+#sobre1, #sobre2{
+	width:32%;
+}
+
+#sobre3{
+	width:20%;
+	float:right;
+}
+
+.textosSobre p{
+	color:#4f4f4f;
+	font-family:montserrat;
+	font-size:0.9em;
+	text-align:justify;
+	line-height:28px;
+}
+
+.subtituloSobre{
+	text-align:center; 
+	font-weight:bold;
+}
+
+.imgUspEtesp {
+	width:15%;
+	margin-left:42.5%;
+	margin-top:15px;
+}
+sub {
+	font-family:montserrat;
+	font-size:0.8em;
+}
+
+input{
+	border-radius: 5px;
+	margin:1%;
+    border: 2px solid rgb(0, 0, 0);
+    background-color: #00000000;
+    font-family: 'Montserrat-Medium';
+    color:black
+}
+
+
+
+
+
+
+
+
+
+/********************************************RESPONSIVIDADE*******************************************************************/
+
+
+@media only screen and (max-width: 1450px) {
+	.divImgEbook{height:50%; width:auto; padding-left:30px;	margin-right:5%; margin-top:100px;}
+}
+
+@media only screen and (max-width: 1220px) {
+	.imgCredito{height:80%;}
+	body{font-size:13px;}
+	#medicao{height:105vh;}	
+	.divAnalise1, .divAnalise2{width:15%; height:auto; margin-left:5%}
+	.divAnaliseCateg1, .divAnaliseCateg2{width:15%; margin-left:5%}
+	#analise{height:85vh;}
+}
+
+@media only screen and (max-width: 1140px) {
+	.textosSobre{padding-right:15px; padding-left:15px;}
+	.imgLogoMenu{margin-top:15px;}
+}
+
+@media only screen and (max-width: 1080px) {
+	body{font-size:12px;}
+	.imgCredito{height:70%;}
+	.divImgSobre{width:30%; height:auto; padding-right:20px;}
+	ul li a {padding: 30px 10px;}
+}
+
+@media only screen and (max-width: 940px) {
+	body{font-size:10px;}
+	.imgCredito{height:60%;}
+	.imgLogoMenu{margin-top:25px;}
+	.divImgEbook{height:40%; width:auto; padding-left:10px;	margin-right:5%; margin-top:120px;}
+}
+
+@media only screen and (max-width: 840px) {
+	.imgCredito{height:55%;}
+	.divImgSobre{width:20%; height:auto; padding-right:20px; margin-top:80px;}
+	.medDireita{padding-top:8%}
+	ul li a {padding: 30px 7px;}
+}
+
+@media only screen and (max-width: 750px) {
+	.divImgEbook{height:30%; width:auto; padding-left:10px;	margin-right:5%; margin-top:120px;}
+	.imgCredito{height:45%;}
+	ul li a {padding: 30px 5px;}
+	body{font-size:9px;}
+	#intro{height:50vh;}
+}
+
+@media only screen and (max-width: 650px) {
+	.esquerda,	ul,	.divImgSobre, 	.divImgEbook, 	.pMed1, #grafico, #analise, #sobre2{display:none;}
+	body{font-size:12px;}
+	.direita, 	.divTextoSobre, .divTextoEbook, .medEsquerda, .medDireita, #sobre1, #sobre3 {width:95%;padding-left:2.5%;margin:0}
+	.imgFuncionamento{width:50%;margin-left:25%; margin-top:0px; clear:both;}
+	.pMedOculto{display:block;}
+	#ebook{height:75vh}
+	#sobre{height:160vh;}
+	#medicao{height:100vh;}
+	.imgCredito{height:90%;}
+}
+
+@media only screen and (max-width: 500px) {
+	.imgCredito{height:80%;}
+}
+
+
+
