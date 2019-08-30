@@ -30,21 +30,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <html>
 	<head>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
+	  
 		<title>ConCO2 - Concentração de Gás Carbônico</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
 		<link rel="icon" href="grafico.png">
 		<link rel="stylesheet" href="css/datepicker.css">
 		<link rel="stylesheet" type="text/css" href="css/css.css">
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
+		<link rel="stylesheet" type="text/css" href="css/fonts.css">
+		<link rel="stylesheet" href="css/datepicker.css">
 		<meta charset="UTF-8">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400'>	
 		<script src="js/patternGraph.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
 	<script src="js/resizeElements.js"></script>
-	<link rel="stylesheet" href="css/datepicker.css">
     <script src="js/Chart.min.js"></script>
-	<script src="js/jquery.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script>
+ 
+	<script>
    window.onload = eraseSessionVariables;                   
    function eraseSessionVariables(){
         $.ajax({ url: 'atualizar.php',
@@ -59,26 +61,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         type: 'post',
         success: function(output) {
 			var analise = new Array();
-			console.log(output);
 			 analise = JSON.parse(output);
-			document.getElementById("maiorDia").innerHTML = analise["data"].czero + " ppm";
+			document.getElementById("maiorDia").innerHTML = parseFloat(analise["data"].czero).toFixed(2) + " ppm";
 				
-			document.getElementById("menorDia").innerHTML = analise["data"].cone + " ppm";
+			document.getElementById("menorDia").innerHTML = parseFloat(analise["data"].cone).toFixed(2) + " ppm";
 				
-			document.getElementById("maiorSemana").innerHTML = analise["data"].cfive + " ppm";
+			document.getElementById("maiorSemana").innerHTML = parseFloat(analise["data"].cfive).toFixed(2) + " ppm";
 				
-			document.getElementById("menorSemana").innerHTML = analise["data"].csix + " ppm";
+			document.getElementById("menorSemana").innerHTML = parseFloat(analise["data"].csix).toFixed(2) + " ppm";
 				
-			document.getElementById("maiorMes").innerHTML = analise["data"].ctwo + " ppm";
+			document.getElementById("maiorMes").innerHTML = parseFloat(analise["data"].ctwo).toFixed(2) + " ppm";
 				
-			document.getElementById("menorMes").innerHTML = analise["data"].cthree + " ppm";
+			document.getElementById("menorMes").innerHTML = parseFloat(analise["data"].cthree).toFixed(2) + " ppm";
 				
-			document.getElementById("mediaSemana").innerHTML = analise["data"].cseven + " ppm";
+			document.getElementById("mediaSemana").innerHTML = parseFloat(analise["data"].cseven).toFixed(2) + " ppm";
 				
-			document.getElementById("mediaMes").innerHTML = analise["data"].cfour + " ppm";
-
+			document.getElementById("mediaMes").innerHTML = parseFloat(analise["data"].cfour).toFixed(2) + " ppm";
+			//transformar em um FOR
 		}}); 
-      $( function() {
+		$( function() {
     $( ".datepicker" ).datepicker({
       showButtonPanel: true,
       changeMonth: true,
@@ -95,7 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     });
     } );   
     </script>
-		<script src="js/jQuery.js"></script>
 		<script>
 			$(document).ready(function() {
 
@@ -145,7 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			});
 		</script>
 	</head>
-	
 	<body onresize = "resizeElements()" onload="resizeElements()">
 		<nav>
 			<div class="logoMenu">
@@ -219,17 +218,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						
 		</section>
 		
-		<section id="grafico">
+		<section id="grafico" style="margin:0 auto">
 			<img src="img/trans3.png" class="transicao">
 			<h1>GRÁFICO EM TEMPO REAL DA CONCENTRAÇÃO DE CO<sub>2</sub> NA ATMOSFERA</h1>
-			<div class="chart-container" style="position: relative; height:100%; width:95%;display:flex; flex-direction:column;">
+			<div class="chart-container" style="position: relative; height:100%; width:95%;display:flex; flex-direction:column;margin:0 auto">
 <canvas id="myChart"></canvas>
 <script>
  Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var initialData = null;
 var myChart = null;
-var mes = false,semana = false;
+var mes = false,semana = false;medmes=false;ano=false;
 myChart = createGraph(true);
 var ctx = document.getElementById("myChart");
 
@@ -278,18 +277,23 @@ $( document ).ready(function() {
 });
     
 </script>
+
 </div>	
-			<form method = "post" style="margin-left:auto;margin-right:auto;width:60%">
+<form action="dia-semana-mes_graphs.php">		
+<button class="btnOpenGraphs">Veja todos os gráficos com concentrações diárias, horárias, dentre outras!</button>
+</form>
+			<form method = "post" class="formsDatepickerCo2">
 				<h1 style="font-size:1.5em;margin-top:30px">Escolha uma das datas para que seja mostrado suas médias horárias:</h1>
 				<input style="margin-left:3%" type="text" name = "datepicker" class="datepicker">
-					<input type="submit" text="Exibir gráfico" id="getMediasHorarias"> 
+					<input type="submit" value="Vamos lá!" id="getMediasHorarias"> 
 				</form>
-				<form method = "post" style="margin-left:auto;margin-right:auto;width:60%">
+				<form method = "post" class="formsDatepickerCo2">
 				<h1 style="font-size:1.5em;margin-top:30px">Escolha duas datas para que seja mostrado as médias diárias dentro do período escolhido</h1>
 				<input type="text" name = "datepickerFrom" class="datepicker" placeholder="De:">
 				<input type="text" name = "datepickerTo" class="datepicker" placeholder="Até:">
-					<input type="submit" text="Exibir gráfico" id="getMediasDiarias"> 
+					<input type="submit" value="Vamos lá!" text="Exibir gráfico" id="getMediasDiarias"> 
 				</form>
+				
 		</section>
 		
 		<section id="analise">

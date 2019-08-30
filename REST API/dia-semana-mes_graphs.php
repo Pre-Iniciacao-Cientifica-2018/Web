@@ -2,6 +2,8 @@
 session_start();
 $_SESSION['datepickerMensal'] = true;
 $_SESSION['datepickerSemanal'] = true;
+$_SESSION['datepickerAnual'] = true;
+$_SESSION['datepickerMedMes'] = true;
 date_default_timezone_set('America/Sao_Paulo');
 $_SESSION['datepicker'] = date("d/m/Y");
 
@@ -39,6 +41,10 @@ $_SESSION['datepicker'] = date("d/m/Y");
 <canvas id="myChart-semana"></canvas>
 <p class = "titleGraphArea">Gráfico das concentrações diárias desse mês</p>
 <canvas id="myChart-mes"></canvas>
+<p class = "titleGraphArea">Gráfico das concentrações anuais</p>
+<canvas id="myChart-ano"></canvas>
+<p class = "titleGraphArea">Gráfico das concentrações mensais</p>
+<canvas id="myChart-medmes"></canvas>
 </div>
 
 <script>
@@ -68,8 +74,7 @@ function attributeToGraph(output){
 contador++;
 }catch(e){console.log(e);}
 }
-var mes = false,semana = false;
-var tf = false;
+var mes = false,semana = false;ano = false;medmes = false;
         $.ajax({ url: 'atualizar.php',
         data: {action: 'md'},
         type: 'post',
@@ -95,6 +100,26 @@ var tf = false;
         type: 'post',
         success: function(output) {
             attributeToGraph(output);
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'mes'},
+        type: 'post',
+        success:function(){
+            ano = true;
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'md'},
+        type: 'post',
+        success:function(output){
+            attributeToGraph(output);
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'ano'},
+        type: 'post',
+        success:function(){
+            medmes = true;
+            $.ajax({ url: 'atualizar.php',
+        data: {action: 'md'},
+        type: 'post',
+        success:function(output){
+            attributeToGraph(output);
             for(var i=0;i<3;i++){
                 contador = 0;
     graphs[i].data.datasets[0].data.forEach((dataset) => {
@@ -110,7 +135,6 @@ var tf = false;
       context.textBaseline = 'middle';
       context.font = "2.5vw 'Title'";
       context.fillText('Dados inexistentes!', width / 2, height / 2);
-      context.restore();
     }
 }
             $.ajax({ url: 'atualizar.php',
@@ -126,6 +150,14 @@ var tf = false;
         }        
     });
 }
+        });
+    }
+        });
+    }
+        });
+    }
+        });
+    }
         });
 
 

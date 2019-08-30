@@ -43,10 +43,11 @@
         else if(isset($_SESSION["datepickerMensal"]) && !empty($_SESSION["datepickerMensal"])){
             convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from DADOS where month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
         }
-        if(isset($_SESSION["datepicker1"]) && !empty($_SESSION["datepicker1"])){
-            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `DADOS` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker1']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
-            $return[count($return)] = "start-con";
-            convertToArray($return,"SELECT avg(concentracao),DATE_FORMAT(data_hora,'%H') TIMEONLY FROM `DADOS` WHERE date_format(date(data_hora),'%d/%m/%Y') like '". $_SESSION['datepicker2']."' GROUP BY hour(data_hora) ORDER BY HOUR(data_hora)");        
+        else if(isset($_SESSION["datepickerAnual"]) && !empty($_SESSION["datepickerAnual"])){
+            convertToArray($return,"SELECT avg(concentracao),year(data_hora) from DADOS where year(data_hora) = year(now()) group by year(data_hora) order by data_hora");
+        }
+        else if(isset($_SESSION["datepickerMedMes"]) && !empty($_SESSION["datepickerMedMes"])){
+            convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%m/%Y') from DADOS where month(data_hora) = month(now()) and year(data_hora) = year(now()) group by month(data_hora) order by data_hora");
         }
         echo json_encode($return);
 }
@@ -82,6 +83,9 @@
             break;
             case 2: $_SESSION['datepickerSemanal'] = null;
             break;
+            case 3: $_SESSION['datepickerMensal'] = null;
+            break;
+            case 4: $_SESSION['datepickerAnual'] = null;
 
         }
     }
@@ -104,6 +108,12 @@
                 break;
                 case 'sem':
                 eraseSpecificSessionVariable(2);
+                break;
+                case 'mes':
+                eraseSpecificSessionVariable(3);
+                break;
+                case 'ano':
+                eraseSpecificSessionVariable(4);
                 break;
         }
     }

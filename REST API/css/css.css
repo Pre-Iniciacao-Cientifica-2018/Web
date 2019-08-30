@@ -274,7 +274,7 @@ ul li a:hover:after {
 	color:#4f4f4f;
 }
 
-.btnEbook{
+.btnEbook,.btnOpenGraphs{
 	width:40%;
 	height:60px;
 	border-radius:40px;
@@ -288,7 +288,11 @@ ul li a:hover:after {
 	color:white
 }
 
-.btnEbook:hover{
+.btnOpenGraphs{
+	margin-left:30%!important;
+}
+
+.btnEbook,.btnOpenGraphs:hover{
 		border: solid 3px #89d2f5;
 		background: #e8f1f2;
 		color:#89d2f5;
@@ -459,8 +463,11 @@ input{
 
 
 
+/************************************************GRÁFICOS*********************************************************************/
 
-
+.formsDatepickerCo2{
+	margin-left:auto;margin-right:auto;width:60%
+}
 
 /********************************************RESPONSIVIDADE*******************************************************************/
 
@@ -513,7 +520,7 @@ input{
 }
 
 @media only screen and (max-width: 650px) {
-	.esquerda,	ul,	.divImgSobre, 	.divImgEbook, 	.pMed1, #grafico, #analise, #sobre2{display:none;}
+	.esquerda,	ul,	.divImgSobre, 	.divImgEbook, 	.pMed1, #analise, #sobre2{display:none;}
 	body{font-size:12px;}
 	.direita, 	.divTextoSobre, .divTextoEbook, .medEsquerda, .medDireita, #sobre1, #sobre3 {width:95%;padding-left:2.5%;margin:0}
 	.imgFuncionamento{width:50%;margin-left:25%; margin-top:0px; clear:both;}
@@ -525,6 +532,7 @@ input{
 }
 
 @media only screen and (max-width: 500px) {
+	#sobreco2{height:80vh}
 	.imgCredito{height:80%;}
 }
 
