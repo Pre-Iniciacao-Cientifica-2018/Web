@@ -463,11 +463,8 @@ sub {
 
 
 
-/************************************************GRÁFICOS*********************************************************************/
 
-.formsDatepickerCo2{
-	margin-left:auto;margin-right:auto;width:60%
-}
+
 
 /********************************************RESPONSIVIDADE*******************************************************************/
 
@@ -512,7 +509,7 @@ sub {
 }
 
 @media only screen and (max-width: 650px) {
-	.esquerda,	ul,	.divImgSobre, 	.divImgEbook, 	.pMed1, #analise, #sobre2{display:none;}
+	.esquerda,	ul,	.divImgSobre, 	.divImgEbook, 	.pMed1, #grafico, #analise, #sobre2{display:none;}
 	body{font-size:12px;}
 	.direita, 	.divTextoSobre, .divTextoEbook, .medEsquerda, .medDireita, #sobre1, #sobre3 {width:95%;padding-left:2.5%;margin:0}
 	.imgFuncionamento{width:50%;margin-left:25%; margin-top:0px; clear:both;}
@@ -521,7 +518,6 @@ sub {
 }
 
 @media only screen and (max-width: 500px) {
-	#sobreco2{height:80vh}
 	.imgCredito{height:80%;}
 }
 
