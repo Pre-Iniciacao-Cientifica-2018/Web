@@ -44,7 +44,7 @@
             convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%d/%m/%Y') from DADOS where month(data_hora) = month(now()) and year(data_hora) = year(now()) group by day(data_hora),month(data_hora),year(data_hora) order by data_hora");
         }
         else if(isset($_SESSION["datepickerAnual"]) && !empty($_SESSION["datepickerAnual"])){
-            convertToArray($return,"SELECT avg(concentracao),year(data_hora) from DADOS group by year(data_hora) order by data_hora");
+            convertToArray($return,"SELECT avg(concentracao),year(data_hora) from DADOS group by year(data_hora) order by data_hora limit 30");
         }
         else if(isset($_SESSION["datepickerMedMes"]) && !empty($_SESSION["datepickerMedMes"])){
             convertToArray($return,"SELECT avg(concentracao),date_format(date(data_hora),'%m/%Y') from DADOS group by month(data_hora) order by data_hora limit 30");
