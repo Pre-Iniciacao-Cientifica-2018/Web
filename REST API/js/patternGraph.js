@@ -4,7 +4,15 @@ function createGraph(isRealTimeGraph){
     Chart.defaults.global.defaultFontColor = '#89d2f5';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var ctx;
-            if(mes){
+        if(medmes){
+        ctx = document.getElementById("myChart-medmes");
+        ano = false;
+        }
+        else if(ano){
+        ctx = document.getElementById("myChart-ano");
+        ano = false;
+        }
+            else if(mes){
                 ctx = document.getElementById("myChart-mes");
                 mes = false;
             }

@@ -30,21 +30,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <html>
 	<head>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
+	  
 		<title>ConCO2 - Concentração de Gás Carbônico</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
 		<link rel="icon" href="grafico.png">
 		<link rel="stylesheet" href="css/datepicker.css">
 		<link rel="stylesheet" type="text/css" href="css/css.css">
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
+		<link rel="stylesheet" type="text/css" href="css/fonts.css">
+		<link rel="stylesheet" href="css/datepicker.css">
 		<meta charset="UTF-8">
 		<link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400'>	
 		<script src="js/patternGraph.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
 	<script src="js/resizeElements.js"></script>
-	<link rel="stylesheet" href="css/datepicker.css">
     <script src="js/Chart.min.js"></script>
-	<script src="js/jquery.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script>
+ 
+	<script>
    window.onload = eraseSessionVariables;                   
    function eraseSessionVariables(){
         $.ajax({ url: 'atualizar.php',
@@ -59,26 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         type: 'post',
         success: function(output) {
 			var analise = new Array();
-			console.log(output);
 			 analise = JSON.parse(output);
-			document.getElementById("maiorDia").innerHTML = analise["data"].czero + " ppm";
-				
-			document.getElementById("menorDia").innerHTML = analise["data"].cone + " ppm";
-				
-			document.getElementById("maiorSemana").innerHTML = analise["data"].cfive + " ppm";
-				
-			document.getElementById("menorSemana").innerHTML = analise["data"].csix + " ppm";
-				
-			document.getElementById("maiorMes").innerHTML = analise["data"].ctwo + " ppm";
-				
-			document.getElementById("menorMes").innerHTML = analise["data"].cthree + " ppm";
-				
-			document.getElementById("mediaSemana").innerHTML = analise["data"].cseven + " ppm";
-				
-			document.getElementById("mediaMes").innerHTML = analise["data"].cfour + " ppm";
-
+			 var analiseArray = new Array("maiorDia","menorDia","maiorMes","menorMes","mediaMes","maiorSemana","menorSemana","mediaSemana");
+			for(let i = 0;i<analiseArray.length;i++){
+				if(analise["data"][i]!=null){
+					document.getElementById(analiseArray[i]).innerHTML = parseFloat(analise["data"][i]).toFixed(2) +" ppm";
+				}
+			}			
 		}}); 
-      $( function() {
+		$( function() {
     $( ".datepicker" ).datepicker({
       showButtonPanel: true,
       changeMonth: true,
@@ -95,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     });
     } );   
     </script>
-		<script src="js/jQuery.js"></script>
 		<script>
 			$(document).ready(function() {
 
@@ -145,7 +135,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			});
 		</script>
 	</head>
-	
 	<body onresize = "resizeElements()" onload="resizeElements()">
 		<nav>
 			<div class="logoMenu">
@@ -219,17 +208,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						
 		</section>
 		
-		<section id="grafico">
+		<section id="grafico" style="margin:0 auto">
 			<img src="img/trans3.png" class="transicao">
 			<h1>GRÁFICO EM TEMPO REAL DA CONCENTRAÇÃO DE CO<sub>2</sub> NA ATMOSFERA</h1>
-			<div class="chart-container" style="position: relative; height:100%; width:95%;display:flex; flex-direction:column;">
+			<div class="chart-container" style="position: relative; height:100%; width:95%;display:flex; flex-direction:column;margin:0 auto">
 <canvas id="myChart"></canvas>
 <script>
  Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontFamily = "Montserrat-Medium";
 var initialData = null;
 var myChart = null;
-var mes = false,semana = false;
+var mes = false,semana = false;medmes=false;ano=false;
 myChart = createGraph(true);
 var ctx = document.getElementById("myChart");
 
@@ -278,18 +267,23 @@ $( document ).ready(function() {
 });
     
 </script>
+
 </div>	
-			<form method = "post" style="margin-left:auto;margin-right:auto;width:60%">
-				<h1 style="font-size:1.5em;margin-top:30px">Escolha uma das datas para que seja mostrado suas médias horárias:</h1>
+<form action="dia-semana-mes_graphs.php">		
+<button class="btnOpenGraphs">Veja todos os gráficos com concentrações diárias, horárias, dentre outras!</button>
+</form>
+			<form method = "post" class="formsDatepickerCo2">
+				<h1 style="font-size:1.2em;margin-top:30px">Escolha uma das datas para que seja mostrado suas médias horárias:</h1>
 				<input style="margin-left:3%" type="text" name = "datepicker" class="datepicker">
-					<input type="submit" text="Exibir gráfico" id="getMediasHorarias"> 
+					<input type="submit" value="Vamos lá!" id="getMediasHorarias"> 
 				</form>
-				<form method = "post" style="margin-left:auto;margin-right:auto;width:60%">
-				<h1 style="font-size:1.5em;margin-top:30px">Escolha duas datas para que seja mostrado as médias diárias dentro do período escolhido</h1>
+				<form method = "post" class="formsDatepickerCo2">
+				<h1 style="font-size:1.2em;margin-top:30px">Escolha duas datas para que seja mostrado as médias diárias dentro do período escolhido</h1>
 				<input type="text" name = "datepickerFrom" class="datepicker" placeholder="De:">
 				<input type="text" name = "datepickerTo" class="datepicker" placeholder="Até:">
-					<input type="submit" text="Exibir gráfico" id="getMediasDiarias"> 
+					<input type="submit" value="Vamos lá!" text="Exibir gráfico" id="getMediasDiarias"> 
 				</form>
+				
 		</section>
 		
 		<section id="analise">
@@ -297,56 +291,48 @@ $( document ).ready(function() {
 			
 			<h1>ANÁLISE DA CONCENTRAÇÃO DE CO<sub>2</sub></h1>
 			
-			<div class="divAnaliseCateg1">
-				<p>Maior concentração </p><p> do dia</p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Maior concentração </p><p> do dia</p>
+				</div>
+				<p class="resultadoPPM" id="maiorDia">--- ppm </p>
 			</div>
-			<div class="divAnaliseCateg1">
-				<p>Menor concentração </p><p> do dia</p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Menor concentração </p><p> do dia</p>
+				</div>
+				<p class="resultadoPPM" id="menorDia">--- ppm</p>
 			</div>
-			<div class="divAnaliseCateg1">
-				<p>Maior concentração </p><p> da semana</p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Maior concentração </p><p> da semana</p>
+				</div>
+				<p class="resultadoPPM" id="maiorSemana">--- ppm</p>
 			</div>
-			<div class="divAnaliseCateg1">
-				<p>Menor concentração </p><p> da semana</p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Menor concentração </p><p> da semana</p></div>
+				<p class="resultadoPPM" id="menorSemana">--- ppm</p>
 			</div>
-			
-			<div class="divAnalise1">
-				<p id = "maiorDia">999.99 ppm </p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Maior concentração do </p><p> mês</p></div>
+				<p class="resultadoPPM" id="maiorMes">--- ppm</p>
 			</div>
-			<div class="divAnalise1">
-				<p id = "menorDia">999.99 ppm </p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Menor concentração </p><p> do mês</p></div>
+				<p class="resultadoPPM" id="menorMes">--- ppm</p>
 			</div>
-			<div class="divAnalise1">
-				<p id = "maiorSemana">999.99 ppm </p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Média da </p><p>  semana</p></div>
+				<p class="resultadoPPM" id="mediaSemana">--- ppm</p>
 			</div>
-			<div class="divAnalise1">
-				<p id = "menorSemana">999.99 ppm </p>
-			</div>
-			
-			<div class="divAnaliseCateg2">
-				<p>Maior concentração </p><p> do mês</p>
-			</div>
-			<div class="divAnaliseCateg2">
-				<p>Menor concentração </p><p> do mês</p>
-			</div>
-			<div class="divAnaliseCateg2">
-				<p>Média da </p><p> semana</p>
-			</div>
-			<div class="divAnaliseCateg2">
-				<p>Média do </p><p> mês</p>
-			</div>
-			
-			<div class="divAnalise2">
-				<p id = "maiorMes">999.99 ppm </p>
-			</div>
-			<div class="divAnalise2">
-				<p id = "menorMes">999.99 ppm </p>
-			</div>
-			<div class="divAnalise2">
-				<p id = "mediaSemana">999.99 ppm </p>
-			</div>
-			<div class="divAnalise2">
-				<p id = "mediaMes">999.99 ppm </p>
+			<div class="divAnalise">
+				<div class="divAnaliseCateg">
+					<p>Média do </p><p>  mês</p></div>
+				<p class="resultadoPPM" id="mediaMes">--- ppm</p>
 			</div>
 			
 			<p class="pParametro">Valores de referência, segundo a CETESB - baixo: abaixo de 999 ppm;   médio: entre 999 ppm e 999 ppm;  alto: acima de 999 ppm. </p>

@@ -19,15 +19,6 @@ $min_semana = SQLMethods::select("SELECT MIN(concentracao) FROM DADOS WHERE DATE
 $media_semana = SQLMethods::select("SELECT AVG(concentracao) FROM DADOS WHERE DATE(data_hora) BETWEEN '{$monday}' AND '{$sunday}'");
 
 $json = array();
-$json["data"] = array();
-    $json["data"] = ["czero" => $max_dia[0][0],
-                     "cone" => $min_dia[0][0],
-                     "ctwo" => $max_mes[0][0],
-                     "cthree" => $min_mes[0][0],
-                     "cfour" => $media_mes[0][0],
-                     "cfive" => $max_semana[0][0],
-                     "csix" => $min_semana[0][0],
-                     "cseven" => $media_semana[0][0],
-                    ];
+$json["data"] = array($max_dia[0][0],$min_dia[0][0],$max_mes[0][0],$min_mes[0][0],$media_mes[0][0],$max_semana[0][0],$min_semana[0][0],$media_semana[0][0]);
 header_remove();
 echo json_encode($json);

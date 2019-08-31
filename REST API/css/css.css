@@ -1,5 +1,3 @@
-/*divAnaliseCateg*/
-/*resultadoPPM*/
 /******************GERAL***************************/
 
 *{
@@ -25,24 +23,26 @@ nav{
 	top: 0;
 	width: 100%;
 	box-shadow:  2px 0px 5px;
-	height:15vh;
+	z-index:1;
 }
 
 nav, footer{
 	background-color:#89d2f5;
 }
 
-footer{
-	height:9vh;
-	margin: 0 auto;
-}
 
 #intro{
-	height:70vh;
+	
 	background-image: url("../img/background.png");
 	background-repeat: no-repeat;
 	background-size: cover; 
+}
 
+#intro, #sobreco2, #ebook, #medicao, #sobre, nav, footer{
+	margin:0 auto;
+	width:100%;
+	height:auto;
+	overflow:hidden;
 }
 
 /*Cores de fundo*/
@@ -57,7 +57,7 @@ footer{
 
 /*Tamanhos*/
 
-#sobreco2{
+/*#sobreco2{
 	height:55vh;
 }
 
@@ -69,6 +69,11 @@ footer{
 	height:112vh;
 }	
 
+
+#grafico{
+	height:90vh;
+}
+
 #analise{
 	height:110vh;
 }
@@ -77,13 +82,16 @@ footer{
 	height:120vh;
 }
 
-
+*/
 
 #intro, #sobreco2{
-	padding:15px;
 	padding-top:17vh;
-}
+} 
 
+.transicao{
+	width:100%;
+	margin:0 auto;
+}
 
 /************INICIO****************/
 .esquerda, .direita{
@@ -145,12 +153,13 @@ footer{
 
 .creditos{
 	width:40%;
-	height:50px;
+	height:auto;
 	margin-top:20px;
+	overflow:hidden;
 }
 
 .imgCredito{
-	height:90%;
+	width:48%;
 }
 
 p{
@@ -274,7 +283,7 @@ ul li a:hover:after {
 	color:#4f4f4f;
 }
 
-.btnEbook{
+.btnEbook,.btnOpenGraphs{
 	width:40%;
 	height:60px;
 	border-radius:40px;
@@ -288,14 +297,14 @@ ul li a:hover:after {
 	color:white
 }
 
-.btnEbook:hover{
+.btnEbook,.btnOpenGraphs:hover{
 		border: solid 3px #89d2f5;
 		background: #e8f1f2;
 		color:#89d2f5;
 }
 
 .divImgEbook{
-	height:70%;
+	height:auto;
 	width:30%;
 	float:left;
 	padding-left:165px;
@@ -303,50 +312,50 @@ ul li a:hover:after {
 }
 
 .imgEbook{
-	height:100%;
+	width:100%;
 	clear:both;
 }
 
-.transicao{
-		width:100%;
-}
 
-
-.divAnaliseCateg1, .divAnaliseCateg2{
-	width:20%;
-	height:60px;
-	/*border-bottom:0.2px solid #b7b7b7;*/
-	background-color:#e8f1f2;
-	padding:15px;
+.divAnalise{
+	width:21.5%;
+	height:200px;
+	border:1px solid #b7b7b7;
+	border-radius:10px;
 	float:left;
 	margin-left:2.5%;
-}
-
-
-.divAnaliseCateg1 p, .divAnaliseCateg2 p{
-	font-family:montserrat;
-	font-size:1.3em;
-	color:#93969b;
-	margin-top:0px;
-}
-
-.divAnalise1, .divAnalise2{
-	width:20%;
-	height:100px;
-	float:left;
-	margin-left:2.5%;
-	padding:15px;
 	margin-bottom:30px;
 	background-color:white;
 }
 
-.divAnalise1 p, .divAnalise2 p{
+.divAnalise p{
 	font-family:montserrat;
 	font-size:2.5em;
 	color:#93969b;
 	margin-top:20px;
 }
 
+.divAnaliseCateg{
+	width:90%;
+	height:60px;
+	border-bottom:0.2px solid #b7b7b7;
+	background-color:#e8f1f2;
+	padding:15px;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.resultadoPPM {
+	padding-top:10px;
+}
+
+
+.divAnaliseCateg p{
+	font-family:montserrat;
+	font-size:1.3em;
+	color:#93969b;
+	margin-top:0px;
+}
 
 h1{
 	font-family:montserrat;
@@ -378,7 +387,6 @@ h1{
 	font-size:1em;
 	font-weight:bold;
 	color:#93969b;
-	margin-bottom:5px;
 }
 
 .medEsquerda p{
@@ -445,14 +453,10 @@ sub {
 	font-size:0.8em;
 }
 
-input{
-	border-radius: 5px;
-	margin:1%;
-    border: 2px solid rgb(0, 0, 0);
-    background-color: #00000000;
-    font-family: 'Montserrat-Medium';
-    color:black
-}
+
+
+
+
 
 
 
@@ -465,17 +469,10 @@ input{
 /********************************************RESPONSIVIDADE*******************************************************************/
 
 
-@media only screen and (max-width: 1450px) {
-	.divImgEbook{height:50%; width:auto; padding-left:30px;	margin-right:5%; margin-top:100px;}
-}
 
-@media only screen and (max-width: 1220px) {
+@media only screen and (max-width: 1200px) {
 	.imgCredito{height:80%;}
 	body{font-size:13px;}
-	#medicao{height:105vh;}	
-	.divAnalise1, .divAnalise2{width:15%; height:auto; margin-left:5%}
-	.divAnaliseCateg1, .divAnaliseCateg2{width:15%; margin-left:5%}
-	#analise{height:85vh;}
 }
 
 @media only screen and (max-width: 1140px) {
@@ -488,13 +485,14 @@ input{
 	.imgCredito{height:70%;}
 	.divImgSobre{width:30%; height:auto; padding-right:20px;}
 	ul li a {padding: 30px 10px;}
+	.divImgEbook{width:40%; padding-left:100px;}
 }
 
 @media only screen and (max-width: 940px) {
 	body{font-size:10px;}
 	.imgCredito{height:60%;}
 	.imgLogoMenu{margin-top:25px;}
-	.divImgEbook{height:40%; width:auto; padding-left:10px;	margin-right:5%; margin-top:120px;}
+	.divImgEbook{width:40%; padding-left:15px;}
 }
 
 @media only screen and (max-width: 840px) {
@@ -505,11 +503,9 @@ input{
 }
 
 @media only screen and (max-width: 750px) {
-	.divImgEbook{height:30%; width:auto; padding-left:10px;	margin-right:5%; margin-top:120px;}
 	.imgCredito{height:45%;}
 	ul li a {padding: 30px 5px;}
 	body{font-size:9px;}
-	#intro{height:50vh;}
 }
 
 @media only screen and (max-width: 650px) {
@@ -518,9 +514,6 @@ input{
 	.direita, 	.divTextoSobre, .divTextoEbook, .medEsquerda, .medDireita, #sobre1, #sobre3 {width:95%;padding-left:2.5%;margin:0}
 	.imgFuncionamento{width:50%;margin-left:25%; margin-top:0px; clear:both;}
 	.pMedOculto{display:block;}
-	#ebook{height:75vh}
-	#sobre{height:160vh;}
-	#medicao{height:100vh;}
 	.imgCredito{height:90%;}
 }
 
@@ -528,5 +521,22 @@ input{
 	.imgCredito{height:80%;}
 }
 
+@media only screen and (min-height: 800px) {
+	#intro, #sobreco2{padding-top:5vh;	} 
+}
 
+.formsDatepickerCo2{
+	margin-left:auto;margin-right:auto;width:60%
+}
+.btnOpenGraphs{
+	margin-left:30%!important;
+}
 
+input{
+	border-radius: 5px;
+	margin:1%;
+    border: 2px solid rgb(0, 0, 0);
+    background-color: #00000000;
+    font-family: 'Montserrat-Medium';
+    color:black
+}

@@ -22,7 +22,7 @@
     </style>
 </head>
 <script>
-var mes = false,semana = false;
+var mes = false,semana = false,ano=false,medmes=false;
     var tf = false;
         $.ajax({ url: 'atualizar.php',
         data: {action: 'md'},
